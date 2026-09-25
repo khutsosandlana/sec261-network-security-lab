@@ -1,0 +1,6 @@
+# Custom Suricata Signatures - SEC261 Lab
+# Targets: Nmap Reconnaissance, Port Scanning, and Unencrypted Service Probes
+
+alert tcp  any -> any (msg:"[CTI ALERT] Active Nmap Stealth SYN Scan Detected"; flags:S; threshold: type threshold, track by_src, count 15, seconds 3; classtype:attempted-recon; sid:1000001; rev:1;)
+alert tcp  any -> 80 (msg:"[CTI ALERT] Unencrypted Port 80 Connection Probe"; flags:S; flow:stateless; classtype:port-scan; sid:1000002; rev:1;)
+alert icmp  any -> any (msg:"[CTI ALERT] High Volume ICMP Ping Sweep Detected"; itype:8; threshold: type threshold, track by_src, count 10, seconds 2; classtype:attempted-recon; sid:1000003; rev:1;)
